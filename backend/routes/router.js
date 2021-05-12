@@ -30,9 +30,11 @@ router.post("/sign-up", userMiddleware.validateRegister, (req, res, next) => {
           } else {
             // has hashed pw => add to database
             db.query(
-              `INSERT INTO users (id, username, password, registered) VALUES ('${uuid.v4()}', ${db.escape(
-                req.body.username
-              )}, ${db.escape(hash)}, now())`,
+              `INSERT INTO users (id, nama, username, password, registered, isAdmin) VALUES ('${uuid.v4()}', ${db.escape(
+                req.body.nama
+              )}, ${db.escape(req.body.username)}, ${db.escape(
+                hash
+              )}, now(), ${db.escape(req.body.isAdmin)})`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -65,7 +67,7 @@ router.post("/login", (req, res, next) => {
       }
       if (!result.length) {
         return res.status(401).send({
-          msg: "Username or password is incorrect!",
+          msg: "nub sia",
         });
       }
       // check password
@@ -109,9 +111,20 @@ router.post("/login", (req, res, next) => {
   );
 });
 
-router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
-    console.log(req.userData);
-    res.send('This is the secret content. Only logged in users can see that!');
-  });
+router.get("/orang-test", userMiddleware.isLoggedIn, (req, res, next) => {
+  console.log(req.userData);
+  res.send("Haloo, berhasil login");
+});
+
+router.get("/user/list", userMiddleware.isLoggedIn, (req, res, next) => {
+  db.query(
+    `SELECT id, nama, username, isAdmin FROM users`,
+    (err, result) => {
+      return res.status(200).send({
+        user: result,
+      });
+    }
+  );
+});
 
 module.exports = router;
