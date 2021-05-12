@@ -5,6 +5,8 @@ import SignUp from "../views/SignUp.vue";
 import Login from "../views/Login.vue";
 import ListUsers from "../views/Users.vue";
 import Content from "../views/Contents.vue";
+import Profile from "../views/Profile.vue";
+import NewUser from "../views/NewUser.vue";
 
 Vue.use(Router);
 
@@ -36,6 +38,16 @@ export default new Router({
       path: "/list/content",
       name: "Content",
       component: Content
+    },
+    {
+      path: "/list/user/profile/:id",
+      name: "Profile",
+      component: Profile
+    },
+    {
+      path: "/list/user/new",
+      name: "NewUser",
+      component: NewUser
     },
   ]
 });

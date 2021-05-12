@@ -5,8 +5,32 @@
       <a href="/list/content">Contents</a>
     </div>
     <div>
-      <h1>Hi {{ username }}</h1>
-      <p>{{ secretMessage }}</p>
+      <div class="container-fluid p-0" id="listUser">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nama</th>
+              <th scope="col">Username</th>
+              <th scope="col">isAdmin</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in users" :key="user.id">
+              <th scope="row">1</th>
+              <td>{{ user.nama }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.isAdmin }}</td>
+              <td>
+                <input type="button" value="Edit" @click="edit(user.id)" />
+                <input type="button" value="Delete" @click="hapus(user.id)" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <input type="button" value="Create User" @click="create" />
       <input type="button" value="Logout" @click="logout" />
     </div>
   </div>
@@ -14,12 +38,12 @@
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      secretMessage: "",
-      username: "",
+      users: null,
     };
   },
   // async created() {
@@ -36,6 +60,28 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push("/login");
     },
+    edit(id) {
+      console.log(id);
+      this.$router.push("/list/user/profile/" + id);
+    },
+    create() {
+      this.$router.push("/list/user/new");
+    },
+    hapus(id) {
+      console.log(id);
+      axios
+        .delete("http://localhost:3000/api/user/list/" + id)
+        .then((response) => {
+          axios
+            .get("http://localhost:3000/api/user/list")
+            .then((response) => (this.users = response.data.user));
+        });
+    },
+  },
+  mounted() {
+    axios
+      .get("http://localhost:3000/api/user/list")
+      .then((response) => (this.users = response.data.user));
   },
 };
 </script>
@@ -76,8 +122,11 @@ export default {
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
 }
-
 </style>
