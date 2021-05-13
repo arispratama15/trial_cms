@@ -51,6 +51,11 @@ export default {
       users: null,
     };
   },
+  async created() {
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push('/login');
+    }
+  },
   methods: {
     save() {
         let inputValue = document.getElementById("myInput").value;

@@ -1,11 +1,13 @@
 <template>
   <div>
     <div class="sidenav">
+      <p>User: {{username}}<input type="button" value="Edit" @click="edit(tempat)" /></p>
       <a href="/list/user">Users</a>
       <a href="/list/content">Contents</a>
     </div>
     <div>
-      <div class="container-fluid p-0" id="listUser">
+      <div v-if="role" class="container-fluid p-0" id="listUser">
+        <input type="button" value="Create User" @click="create" />
         <table class="table">
           <thead>
             <tr>
@@ -30,7 +32,6 @@
           </tbody>
         </table>
       </div>
-      <input type="button" value="Create User" @click="create" />
       <input type="button" value="Logout" @click="logout" />
     </div>
   </div>
@@ -44,17 +45,19 @@ export default {
   data() {
     return {
       users: null,
+      username: '',
+      role: '',
+      tempat: '',
     };
   },
-  // async created() {
-  //   if (!this.$store.getters.isLoggedIn) {
-  //     this.$router.push('/login');
-  //   }
-
-  //   this.username = this.$store.getters.getUser.username;
-
-  //   this.secretMessage = await AuthService.getSecretContent();
-  // },
+  async created() {
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push('/login');
+    }
+    this.username = this.$store.getters.getUser.username;
+    this.role = this.$store.getters.getUser.isAdmin;
+    this.tempat = this.$store.getters.getUser.id;
+  },
   methods: {
     logout() {
       this.$store.dispatch("logout");

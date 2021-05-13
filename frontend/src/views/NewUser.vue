@@ -43,6 +43,11 @@ export default {
       users: null,
     };
   },
+  async created() {
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push('/login');
+    }
+  },
   methods: {
     save() {
       let nama = document.getElementById("myName").value;
