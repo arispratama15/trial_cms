@@ -1,12 +1,38 @@
 <template>
   <div>
     <div class="sidenav">
+      <p>
+        User: {{ username
+        }}<input type="button" value="Edit Profile" @click="edit(tempat)" />
+      </p>
       <a href="/list/user">Users</a>
-      <a href="/list/content">Contents</a>
+      <a href="/list/content"><b>Contents</b></a>
     </div>
     <div>
-      <h1>Hi {{ username }}</h1>
-      <p>{{ secretMessage }}</p>
+      <div class="container-fluid p-0" id="listUser">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Content</th>
+              <th scope="col">Author</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="content in contents" :key="content.id">
+              <th scope="row">1</th>
+              <td>{{ content.content }}</td>
+              <td>{{ content.author }}</td>
+              <td>
+                <input type="button" value="Edit" @click="edit(content.id)" />
+                <input type="button" value="Delete" @click="hapus(content.id)" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <input type="button" value="Create Content" @click="create" />
       <input type="button" value="Logout" @click="logout" />
     </div>
   </div>
@@ -14,28 +40,52 @@
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      secretMessage: "",
+      contents: null,
       username: "",
+      role: "",
+      tempat: "",
     };
   },
-  // async created() {
-  //   if (!this.$store.getters.isLoggedIn) {
-  //     this.$router.push('/login');
-  //   }
-
-  //   this.username = this.$store.getters.getUser.username;
-
-  //   this.secretMessage = await AuthService.getSecretContent();
-  // },
+  async created() {
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push("/login");
+    }
+    this.username = this.$store.getters.getUser.username;
+    this.role = this.$store.getters.getUser.isAdmin;
+    this.tempat = this.$store.getters.getUser.id;
+  },
   methods: {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/login");
     },
+    edit(id) {
+      console.log(id);
+      this.$router.push("/list/content/edit/" + id);
+    },
+    create() {
+      this.$router.push("/list/content/new");
+    },
+    hapus(id) {
+      console.log(id);
+      axios
+        .delete("http://localhost:3000/api/content/list/" + id)
+        .then((response) => {
+          axios
+            .get("http://localhost:3000/api/content")
+            .then((response) => (this.contents = response.data.data));
+        });
+    },
+  },
+  mounted() {
+    axios
+      .get("http://localhost:3000/api/content")
+      .then((response) => (this.contents = response.data.data));
   },
 };
 </script>
@@ -76,8 +126,11 @@ export default {
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
 }
-
 </style>

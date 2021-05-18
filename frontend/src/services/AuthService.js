@@ -14,8 +14,8 @@ export default {
     return axios
       .post(url + 'sign-up/', credentials)
       .then(response => response.data);
-  },
-  getSecretContent() {
-    return axios.get(url + 'orang-test/').then(response => response.data);
   }
+  // getSecretContent() {
+  //   return axios.get(url + 'orang-test/').then(response => response.data);
+  // }
 };

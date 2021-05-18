@@ -203,4 +203,71 @@ router.put("/user/new", (req, res, next) => {
   );
 });
 
+// Router content
+
+router.get("/content", (req, res, next) => {
+  db.query(`SELECT id, content, author FROM contents`, (err, result) => {
+    return res.status(200).send({
+      data: result,
+    });
+  });
+});
+
+router.get("/content/list/:id", (req, res, next) => {
+  db.query(
+    `SELECT id, content, author FROM contents WHERE id=${db.escape(
+      req.params.id
+    )}`,
+    (err, result) => {
+      return res.status(200).send({
+        data: result,
+      });
+    }
+  );
+});
+
+router.delete("/content/list/:id", (req, res, next) => {
+  db.query(
+    `DELETE FROM contents WHERE id=${db.escape(req.params.id)}`,
+    (err, result) => {
+      return res.status(200).send({
+        data: result,
+      });
+    }
+  );
+});
+
+router.post("/content/list/:id", (req, res, next) => {
+  db.query(
+    `UPDATE contents SET content=${db.escape(req.body.content)}, author=${db.escape(req.body.author)} WHERE id=${db.escape(
+      req.params.id
+    )}`,
+    (err, result) => {
+      return res.status(200).send({
+        data: result,
+      });
+    }
+  );
+});
+
+router.put("/content/new", (req, res, next) => {
+  db.query(
+    `INSERT INTO contents (id, content, author) VALUES ('${uuid.v4()}', ${db.escape(
+      req.body.content
+    )}, ${db.escape(req.body.author)})`,
+    (err, result) => {
+        if (err) {
+          throw err;
+          return res.status(400).send({
+            msg: err,
+          });
+        }
+        return res.status(201).send({
+          msg: "Added!",
+        });
+      }
+  );
+});
+
+
 module.exports = router;

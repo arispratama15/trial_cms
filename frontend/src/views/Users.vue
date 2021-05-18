@@ -1,8 +1,11 @@
 <template>
   <div>
     <div class="sidenav">
-      <p>User: {{username}}<input type="button" value="Edit" @click="edit(tempat)" /></p>
-      <a href="/list/user">Users</a>
+      <p>
+        User: {{ username
+        }}<input type="button" value="Edit Profile" @click="edit(tempat)" />
+      </p>
+      <a href="/list/user"><b>Users</b></a>
       <a href="/list/content">Contents</a>
     </div>
     <div>
@@ -45,14 +48,14 @@ export default {
   data() {
     return {
       users: null,
-      username: '',
-      role: '',
-      tempat: '',
+      username: "",
+      role: "",
+      tempat: "",
     };
   },
   async created() {
     if (!this.$store.getters.isLoggedIn) {
-      this.$router.push('/login');
+      this.$router.push("/login");
     }
     this.username = this.$store.getters.getUser.username;
     this.role = this.$store.getters.getUser.isAdmin;
