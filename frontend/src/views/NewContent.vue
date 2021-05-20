@@ -20,8 +20,8 @@
         </tbody>
       </table>
     </div>
-    <input type="button" value="Create" @click="save" />
-    <input type="button" value="Cancel" @click="cancel" />
+    <input class="btn btn-md btn-outline-dark" type="button" value="Create" @click="save" />
+    <input class="btn btn-md btn-outline-dark" type="button" value="Cancel" @click="cancel" />
   </div>
 </template>
 

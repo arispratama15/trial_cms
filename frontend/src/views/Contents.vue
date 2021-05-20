@@ -47,8 +47,8 @@
           </tbody>
         </table>
       </div>
-      <input type="button" value="Create Content" @click="create" />
-      <input type="button" value="Logout" @click="logout" />
+      <input class="btn btn-md btn-outline-dark" type="button" value="Create Content" @click="create" />
+      <input class="btn btn-md btn-outline-dark" type="button" value="Logout" @click="logout" />
     </div>
   </div>
 </template>

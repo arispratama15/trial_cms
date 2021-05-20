@@ -35,8 +35,8 @@
           </li>
         </div>
       </ul>
-      <input type="button" value="Save" @click="save" />
-      <input type="button" value="Cancel" @click="cancel" />
+      <input class="btn btn-md btn-outline-dark" type="button" value="Save" @click="save" />
+      <input class="btn btn-md btn-outline-dark" type="button" value="Cancel" @click="cancel" />
     </div>
   </div>
 </template>

@@ -48,7 +48,7 @@
             </tr>
           </tbody>
         </table>
-        <input type="button" value="Create User" @click="create" />
+        <input class="btn btn-md btn-outline-dark" type="button" value="Create User" @click="create" />
       </div>
     </div>
   </div>
