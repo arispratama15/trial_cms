@@ -60,7 +60,7 @@ export default {
     save() {
         let inputValue = document.getElementById("myInput").value;
         axios
-        .post('http://localhost:3000/api/user/list/' + this.$route.params.id, {
+        .post('https://aris.hollacode.com/api/user/list/' + this.$route.params.id, {
           nama: inputValue
         })
         .then((response) => this.$router.push("/list/user/"))
@@ -71,7 +71,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/user/list/" + this.$route.params.id)
+      .get("https://aris.hollacode.com/api/user/list/" + this.$route.params.id)
       .then((response) => (this.users = response.data.user));
   },
 };

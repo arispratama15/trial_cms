@@ -52,7 +52,7 @@ export default {
           author = document.getElementById("myAuthor").value;
       }
       axios
-        .put("http://localhost:3000/api/content/new", {
+        .put("https://aris.hollacode.com/api/content/new", {
           content: content,
           author: author,
         })

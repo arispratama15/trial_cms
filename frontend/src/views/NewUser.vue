@@ -55,7 +55,7 @@ export default {
       let password = document.getElementById("myPassword").value;
       let isAdmin = document.querySelector("#isAdmin").checked;
       axios
-        .put("http://localhost:3000/api/user/new", {
+        .put("https://aris.hollacode.com/api/user/new", {
           nama: nama,
           username: username,
           password: password,

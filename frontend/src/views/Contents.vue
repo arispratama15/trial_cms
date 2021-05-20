@@ -1,9 +1,10 @@
 <template>
   <div>
     <div class="sidenav">
-      <p>
+      <p class="p-3 mb-2 bg-dark text-white">
         User: {{ username
-        }}<input type="button" value="Edit Profile" @click="edit(tempat)" />
+        }}<input class="btn btn-sm btn-outline-secondary" type="button" value="Edit Profile" @click="edit(tempat)" />
+        <input class="btn btn-sm btn-outline-secondary" type="button" value="Logout" @click="logout" />
       </p>
       <a href="/list/user">Users</a>
       <a href="/list/content"><b>Contents</b></a>
@@ -25,8 +26,22 @@
               <td>{{ content.content }}</td>
               <td>{{ content.author }}</td>
               <td>
-                <input type="button" value="Edit" @click="edit(content.id)" />
-                <input type="button" value="Delete" @click="hapus(content.id)" />
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    @click="edit(user.id)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    @click="hapus(user.id)"
+                  >
+                    Delete
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -74,17 +89,17 @@ export default {
     hapus(id) {
       console.log(id);
       axios
-        .delete("http://localhost:3000/api/content/list/" + id)
+        .delete("https://aris.hollacode.com/api/content/list/" + id)
         .then((response) => {
           axios
-            .get("http://localhost:3000/api/content")
+            .get("https://aris.hollacode.com/api/content")
             .then((response) => (this.contents = response.data.data));
         });
     },
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/content")
+      .get("https://aris.hollacode.com/api/content")
       .then((response) => (this.contents = response.data.data));
   },
 };

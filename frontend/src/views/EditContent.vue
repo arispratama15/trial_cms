@@ -62,7 +62,7 @@ export default {
       let author = document.getElementById("myAuthor").value;
       axios
         .post(
-          "http://localhost:3000/api/content/list/" + this.$route.params.id,
+          "https://aris.hollacode.com/api/content/list/" + this.$route.params.id,
           {
             content: content,
             author: author
@@ -76,7 +76,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/content/list/" + this.$route.params.id)
+      .get("https://aris.hollacode.com/api/content/list/" + this.$route.params.id)
       .then((response) => (this.contents = response.data.data));
   },
 };

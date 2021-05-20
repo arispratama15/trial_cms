@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="sidenav">
-      <p>
+      <p class="p-3 mb-2 bg-dark text-white">
         User: {{ username
-        }}<input type="button" value="Edit Profile" @click="edit(tempat)" />
+        }}<input class="btn btn-sm btn-outline-secondary" type="button" value="Edit Profile" @click="edit(tempat)" />
+        <input class="btn btn-sm btn-outline-secondary" type="button" value="Logout" @click="logout" />
       </p>
       <a href="/list/user"><b>Users</b></a>
       <a href="/list/content">Contents</a>
     </div>
     <div>
       <div v-if="role" class="container-fluid p-0" id="listUser">
-        <input type="button" value="Create User" @click="create" />
         <table class="table">
           <thead>
             <tr>
@@ -28,14 +28,28 @@
               <td>{{ user.username }}</td>
               <td>{{ user.isAdmin }}</td>
               <td>
-                <input type="button" value="Edit" @click="edit(user.id)" />
-                <input type="button" value="Delete" @click="hapus(user.id)" />
+                <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                        @click="edit(user.id)"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                        @click="hapus(user.id)"
+                      >
+                        Delete
+                      </button>
+                </div>
               </td>
             </tr>
           </tbody>
         </table>
+        <input type="button" value="Create User" @click="create" />
       </div>
-      <input type="button" value="Logout" @click="logout" />
     </div>
   </div>
 </template>
@@ -76,17 +90,17 @@ export default {
     hapus(id) {
       console.log(id);
       axios
-        .delete("http://localhost:3000/api/user/list/" + id)
+        .delete("https://aris.hollacode.com/api/user/list/" + id)
         .then((response) => {
           axios
-            .get("http://localhost:3000/api/user/list")
+            .get("https://aris.hollacode.com/api/user/list")
             .then((response) => (this.users = response.data.user));
         });
     },
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/user/list")
+      .get("https://aris.hollacode.com/api/user/list")
       .then((response) => (this.users = response.data.user));
   },
 };
