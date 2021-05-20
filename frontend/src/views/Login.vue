@@ -3,8 +3,18 @@
     <h1>Login</h1>
     <input type="text" placeholder="Username" v-model="username" />
     <input type="text" placeholder="Password" v-model="password" />
-    <input class="btn btn-md btn-outline-dark" type="button" @click="login" value="Login" />
-    <input class="btn btn-md btn-outline-dark" type="button" @click="back" value="Back" />
+    <input
+      class="btn btn-sm btn-outline-dark"
+      type="button"
+      @click="login"
+      value="Login"
+    />
+    <input
+      class="btn btn-sm btn-outline-dark"
+      type="button"
+      @click="back"
+      value="Back"
+    />
     <p v-if="msg">{{ msg }}</p>
   </div>
 </template>

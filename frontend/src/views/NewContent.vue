@@ -11,17 +11,38 @@
         <tbody>
           <tr>
             <td>
-              <input type="text" id="myContent" placeholder="Input Content" />
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  id="myContent"
+                  rows="3"
+                  placeholder="Input Content"
+                ></textarea>
+              </div>
             </td>
             <td>
-              <input type="text" id="myAuthor" placeholder="Input Name of Author (default: username)" />
+              <input
+                type="text"
+                id="myAuthor"
+                placeholder="(default: username)"
+              />
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <input class="btn btn-md btn-outline-dark" type="button" value="Create" @click="save" />
-    <input class="btn btn-md btn-outline-dark" type="button" value="Cancel" @click="cancel" />
+    <input
+      class="btn btn-md btn-outline-dark"
+      type="button"
+      value="Create"
+      @click="save"
+    />
+    <input
+      class="btn btn-md btn-outline-dark"
+      type="button"
+      value="Cancel"
+      @click="cancel"
+    />
   </div>
 </template>
 
@@ -46,10 +67,10 @@ export default {
     save() {
       let content = document.getElementById("myContent").value;
       let author = "";
-      if ( !document.getElementById("myAuthor").value ){
-          author = this.username;
+      if (!document.getElementById("myAuthor").value) {
+        author = this.username;
       } else {
-          author = document.getElementById("myAuthor").value;
+        author = document.getElementById("myAuthor").value;
       }
       axios
         .put("https://aris.hollacode.com/api/content/new", {
