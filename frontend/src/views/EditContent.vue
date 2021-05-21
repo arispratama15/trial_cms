@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
 import axios from "axios";
 
 export default {
