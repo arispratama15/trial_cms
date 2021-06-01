@@ -2,7 +2,7 @@
   <div>
     <h1>Login</h1>
     <input type="text" placeholder="Username" v-model="username" />
-    <input type="text" placeholder="Password" v-model="password" />
+    <input type="password" placeholder="Password" v-model="password" />
     <input
       class="btn btn-sm btn-outline-dark"
       type="button"
@@ -37,9 +37,8 @@ export default {
           password: this.password,
         };
         const response = await AuthService.login(credentials);
-        this.msg = response.msg;
 
-        const token = response.token;
+        const token = response.access_token;
         const user = response.user;
 
         this.$store.dispatch("login", { token, user });

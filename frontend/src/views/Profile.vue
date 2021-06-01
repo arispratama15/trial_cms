@@ -11,8 +11,8 @@
         </thead>
         <tbody>
           <tr v-for="user in users" :key="user.id">
-            <th scope="row">1</th>
-            <td>{{ user.nama }}</td>
+            <th scope="row"></th>
+            <td> {{ user.nama }}</td>
             <td>
               <input
                 type="text"
@@ -24,17 +24,6 @@
           </tr>
         </tbody>
       </table>
-      <ul class="list-group">
-        <div>
-          <li
-            class="list-group-item list-group-item-secondary"
-            v-for="user in users"
-            :key="user.id"
-          >
-            {{ user }}
-          </li>
-        </div>
-      </ul>
       <input class="btn btn-md btn-outline-dark" type="button" value="Save" @click="save" />
       <input class="btn btn-md btn-outline-dark" type="button" value="Cancel" @click="cancel" />
     </div>
@@ -47,7 +36,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      users: null,
+      users: [],
     };
   },
   async created() {
@@ -59,7 +48,7 @@ export default {
     save() {
         let inputValue = document.getElementById("myInput").value;
         axios
-        .post('https://aris.hollacode.com/api/user/list/' + this.$route.params.id, {
+        .put('https://aris.hollacode.com/users/' + this.$route.params.id, {
           nama: inputValue
         })
         .then((response) => this.$router.push("/list/user/"))
@@ -70,8 +59,9 @@ export default {
   },
   mounted() {
     axios
-      .get("https://aris.hollacode.com/api/user/list/" + this.$route.params.id)
-      .then((response) => (this.users = response.data.user));
+      .get("https://aris.hollacode.com/users/" + this.$route.params.id)
+      .then((response) => (this.users.push(response.data)))
+      // .then(console.log(this.users[0].data))
   },
 };
 </script>

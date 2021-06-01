@@ -30,14 +30,14 @@
                   <button
                     type="button"
                     class="btn btn-sm btn-outline-secondary"
-                    @click="edit(user.id)"
+                    @click="edit(content.id)"
                   >
                     Edit
                   </button>
                   <button
                     type="button"
                     class="btn btn-sm btn-outline-secondary"
-                    @click="hapus(user.id)"
+                    @click="hapus(content.id)"
                   >
                     Delete
                   </button>
@@ -69,7 +69,7 @@ export default {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/login");
     }
-    this.username = this.$store.getters.getUser.username;
+    this.username = this.$store.getters.getUser.user;
     this.role = this.$store.getters.getUser.isAdmin;
     this.tempat = this.$store.getters.getUser.id;
   },
@@ -88,18 +88,18 @@ export default {
     hapus(id) {
       console.log(id);
       axios
-        .delete("https://aris.hollacode.com/api/content/list/" + id)
+        .delete("https://aris.hollacode.com/contents/" + id)
         .then((response) => {
           axios
-            .get("https://aris.hollacode.com/api/content")
-            .then((response) => (this.contents = response.data.data));
+            .get("https://aris.hollacode.com/content")
+            .then((response) => (this.contents = response.data));
         });
     },
   },
   mounted() {
     axios
-      .get("https://aris.hollacode.com/api/content")
-      .then((response) => (this.contents = response.data.data));
+      .get("https://aris.hollacode.com/contents")
+      .then((response) => (this.contents = response.data));
   },
 };
 </script>

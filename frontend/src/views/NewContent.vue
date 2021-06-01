@@ -60,7 +60,7 @@ export default {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/login");
     }
-    this.username = this.$store.getters.getUser.username;
+    this.username = this.$store.getters.getUser.user;
   },
   methods: {
     save() {
@@ -72,7 +72,7 @@ export default {
         author = document.getElementById("myAuthor").value;
       }
       axios
-        .put("https://aris.hollacode.com/api/content/new", {
+        .post("https://aris.hollacode.com/contents", {
           content: content,
           author: author,
         })

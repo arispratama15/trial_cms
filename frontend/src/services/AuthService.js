@@ -2,12 +2,12 @@
 
 import axios from 'axios';
 
-const url = 'https://aris.hollacode.com/api/';
+const url = 'https://aris.hollacode.com/';
 
 export default {
   login(credentials) {
     return axios
-      .post(url + 'login/', credentials)
+      .post(url + 'auth', credentials)
       .then(response => response.data);
   },
   signUp(credentials) {

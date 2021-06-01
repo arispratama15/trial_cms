@@ -10,7 +10,7 @@ Vue.use(Vuex);
 const getDefaultState = () => {
   return {
     token: '',
-    user: {}
+    user: ''
   };
 };
 

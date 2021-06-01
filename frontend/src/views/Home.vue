@@ -52,8 +52,8 @@ export default {
   },
   mounted() {
     axios
-      .get("https://aris.hollacode.com/api/content")
-      .then((response) => (this.data = response.data.data));
+      .get("https://aris.hollacode.com/contents")
+      .then((response) => (this.data = response.data));
   },
 };
 </script>

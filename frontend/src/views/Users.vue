@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       users: null,
-      username: "",
+      username: null,
       role: "",
       tempat: "",
     };
@@ -70,9 +70,9 @@ export default {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/login");
     }
-    this.username = this.$store.getters.getUser.username;
-    this.role = this.$store.getters.getUser.isAdmin;
-    this.tempat = this.$store.getters.getUser.id;
+    this.username = this.$store.getters.getUser[0].user;
+    this.role = this.$store.getters.getUser[0].isAdmin;
+    this.tempat = this.$store.getters.getUser[0].id;
   },
   methods: {
     logout() {
@@ -89,18 +89,18 @@ export default {
     hapus(id) {
       console.log(id);
       axios
-        .delete("https://aris.hollacode.com/api/user/list/" + id)
+        .delete("https://aris.hollacode.com/users/" + id)
         .then((response) => {
           axios
-            .get("https://aris.hollacode.com/api/user/list")
-            .then((response) => (this.users = response.data.user));
+            .get("https://aris.hollacode.com/users")
+            .then((response) => (this.users = response.data));
         });
     },
   },
   mounted() {
     axios
-      .get("https://aris.hollacode.com/api/user/list")
-      .then((response) => (this.users = response.data.user));
+      .get("https://aris.hollacode.com/users")
+      .then((response) => (this.users = response.data));
   },
 };
 </script>
