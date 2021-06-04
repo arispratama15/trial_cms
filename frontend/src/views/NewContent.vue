@@ -66,7 +66,7 @@ export default {
     save() {
       let content = document.getElementById("myContent").value;
       let author = "";
-      if (!document.getElementById("myAuthor").value) {
+      if (document.getElementById("myAuthor").value == null) {
         author = this.username;
       } else {
         author = document.getElementById("myAuthor").value;

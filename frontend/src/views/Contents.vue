@@ -88,10 +88,14 @@ export default {
     hapus(id) {
       console.log(id);
       axios
-        .delete("https://aris.hollacode.com/contents/" + id)
+        .delete("https://aris.hollacode.com/contents/delete", {
+          data: {
+            id: id,
+          },
+        })
         .then((response) => {
           axios
-            .get("https://aris.hollacode.com/content")
+            .get("https://aris.hollacode.com/contents")
             .then((response) => (this.contents = response.data));
         });
     },

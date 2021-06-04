@@ -3,8 +3,18 @@
     <div class="sidenav">
       <p class="p-3 mb-2 bg-dark text-white">
         User: {{ username
-        }}<input class="btn btn-sm btn-outline-secondary" type="button" value="Edit Profile" @click="edit(tempat)" />
-        <input class="btn btn-sm btn-outline-secondary" type="button" value="Logout" @click="logout" />
+        }}<input
+          class="btn btn-sm btn-outline-secondary"
+          type="button"
+          value="Edit Profile"
+          @click="edit(tempat)"
+        />
+        <input
+          class="btn btn-sm btn-outline-secondary"
+          type="button"
+          value="Logout"
+          @click="logout"
+        />
       </p>
       <a href="/list/user"><b>Users</b></a>
       <a href="/list/content">Contents</a>
@@ -29,26 +39,31 @@
               <td>{{ user.isAdmin }}</td>
               <td>
                 <div class="btn-group">
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-outline-secondary"
-                        @click="edit(user.id)"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-outline-secondary"
-                        @click="hapus(user.id)"
-                      >
-                        Delete
-                      </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    @click="edit(user.id)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    @click="hapus(user.id)"
+                  >
+                    Delete
+                  </button>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
-        <input class="btn btn-md btn-outline-dark" type="button" value="Create User" @click="create" />
+        <input
+          class="btn btn-md btn-outline-dark"
+          type="button"
+          value="Create User"
+          @click="create"
+        />
       </div>
     </div>
   </div>
@@ -88,8 +103,16 @@ export default {
     },
     hapus(id) {
       console.log(id);
+      console.log(typeof id);
       axios
-        .delete("https://aris.hollacode.com/users/" + id)
+        .delete("https://aris.hollacode.com/users/delete", {
+          data: {
+            id: id,
+          },
+        })
+        .catch((err) => {
+          console.log(err.message);
+        })
         .then((response) => {
           axios
             .get("https://aris.hollacode.com/users")

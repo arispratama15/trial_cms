@@ -55,12 +55,9 @@ import axios from "axios";
 export default {
   data() {
     return {
-      contents: [
-        {
-          data: null,
-        },
-      ],
+      contents: [],
       username: "",
+      id: null,
     };
   },
   async created() {
@@ -68,6 +65,7 @@ export default {
       this.$router.push("/login");
     }
     this.username = this.$store.getters.getUser.user;
+    this.id = Number(this.$route.params.id);
   },
   methods: {
     save() {
@@ -86,8 +84,10 @@ export default {
   },
   mounted() {
     axios
-      .get("https://aris.hollacode.com/contents/" + this.$route.params.id)
-      .then((response) => (this.contents[0].data = response.data));
+      .post("https://aris.hollacode.com/contents/list", {
+        id: this.id,
+      })
+      .then((response) => this.contents.push(response.data));
   },
 };
 </script>
